@@ -1,0 +1,354 @@
+{
+	"info": {
+		"_postman_id": "02431392-5718-4a4e-b921-3cab83723d5d",
+		"name": "Assigment1",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "8678739"
+	},
+	"item": [
+		{
+			"name": "Assigment1",
+			"item": [
+				{
+					"name": "Create User",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "Fahmi123",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "Fahmi2",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"test\",\r\n    \"email\": \"test@test.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/users/create_user",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"create_user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "Fahmi2",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "Fahmi123",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/users/delete_user/16",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"delete_user",
+								"16"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "Fahmi2",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "Fahmi123",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"yaya\",\r\n    \"email\":\"yaya@gmail.com\"\r\n    \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/users/update_user/19",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"update_user",
+								"19"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User By ID",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "Fahmi2",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "Fahmi123",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/users/getuser/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"getuser",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Submission_create",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "Fahmi2",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "Fahmi123",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"user_id\": 1,\r\n  \"answers\": [\r\n    {\r\n      \"question_id\": 1,\r\n      \"answer\": \"Pertumbuhan kekayaan untuk jangka panjang\"\r\n    },\r\n    {\r\n      \"question_id\": 2,\r\n      \"answer\": \"≥ 10 tahun\"\r\n    },\r\n    {\r\n      \"question_id\": 3,\r\n      \"answer\": \"> 10 tahun\"\r\n    },\r\n    {\r\n      \"question_id\": 4,\r\n      \"answer\": \"Saham, Reksa Dana terbuka, equity linked structure product\"\r\n    },\r\n    {\r\n      \"question_id\": 5,\r\n      \"answer\": \"> 50%\"\r\n    },\r\n    {\r\n      \"question_id\": 6,\r\n      \"answer\": \"< -20% - > +20%\"\r\n    },\r\n    {\r\n      \"question_id\": 7,\r\n      \"answer\": \"Tidak bergantung pada hasil investasi\"\r\n    },\r\n    {\r\n      \"question_id\": 8,\r\n      \"answer\": \"> 50%\"\r\n    }\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/submissions/create_submission",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"submissions",
+								"create_submission"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Submmission_delete",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "Fahmi2",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "Fahmi123",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/submissions/delete_submission/12",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"submissions",
+								"delete_submission",
+								"12"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Submission_GetByID",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "Fahmi2",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "Fahmi123",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/submissions/submissionsGetByID/2",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"submissions",
+								"submissionsGetByID",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Submission_GetByUserID",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "Fahmi2",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "Fahmi123",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/submissions/submissionsGetByUserID/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"submissions",
+								"submissionsGetByUserID",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Submission_GetAll",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "Fahmi2",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "Fahmi123",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/submissions/submissionsGetAll",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"submissions",
+								"submissionsGetAll"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
