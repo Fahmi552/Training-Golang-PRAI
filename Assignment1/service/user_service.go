@@ -99,14 +99,14 @@ func (s *userService) GetUserWithLatestSubmission_service(ctx context.Context, u
 
 	// Buat objek untuk menyimpan informasi yang akan dikembalikan
 	userWithRiskProfile := entity.UserWithRiskProfile{
-		ID:           user.ID,
-		Name:         user.Name,
-		Email:        user.Email,
-		RiskScore:    submission.RiskScore,
-		RiskCategory: string(submission.RiskCategory),
-		//RiskDefinition: submission.RiskDefinition,
-		CreatedAt: user.CreatedAt,
-		UpdatedAt: user.UpdatedAt,
+		ID:             user.ID,
+		Name:           user.Name,
+		Email:          user.Email,
+		RiskScore:      submission.RiskScore,
+		RiskCategory:   string(submission.RiskCategory),
+		RiskDefinition: submission.RiskDefinition,
+		CreatedAt:      user.CreatedAt,
+		UpdatedAt:      user.UpdatedAt,
 	}
 
 	return userWithRiskProfile, nil
