@@ -1,0 +1,31 @@
+syntax = "proto3";
+option go_package = "Training/Assignment2/wallet_server/proto;wallet";
+
+
+package proto.wallet_service.v1;
+
+
+service walletService{
+        rpc CreateWallet (CreateWalletRequest) returns (MutationResponse) {}
+    }
+
+    message Wallet {
+       
+        int32 user_id = 1;
+        float balance = 2;
+        
+    }
+
+    message GetWalletsResponse {
+        repeated Wallet wallets = 1;
+    }
+
+    message CreateWalletRequest {
+        int32 id = 1;
+        int32 userID = 2;
+        float balance = 3;
+    }
+
+    message MutationResponse {
+        string message = 1;
+    }

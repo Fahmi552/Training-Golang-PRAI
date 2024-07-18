@@ -1,0 +1,26 @@
+CREATE TABLE public.ttransactions (
+	id serial4 NOT NULL,
+	user_id int4 NOT NULL,
+	"type" varchar(50) NULL,
+	amount numeric(15, 2) NOT NULL,
+	target_user_id int4 NULL,
+	created_at timestamp DEFAULT CURRENT_TIMESTAMP NULL,
+	CONSTRAINT ttransactions_pkey PRIMARY KEY (id),
+	CONSTRAINT ttransactions_type_check CHECK (((type)::text = ANY ((ARRAY['topup'::character varying, 'transfer'::character varying])::text[])))
+);
+
+CREATE TABLE public.tuser (
+	id serial4 NOT NULL,
+	"name" varchar(100) NOT NULL,
+	email varchar(100) NOT NULL,
+	created_at timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL,
+	updated_at timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL,
+	CONSTRAINT tuser_email_key UNIQUE (email),
+	CONSTRAINT tuser_pkey PRIMARY KEY (id)
+);
+
+CREATE TABLE public.twallets (
+	user_id int4 NOT NULL,
+	balance numeric(15, 2) DEFAULT 0.00 NULL,
+	CONSTRAINT twallets_pkey PRIMARY KEY (user_id)
+);

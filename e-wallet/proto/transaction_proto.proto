@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+option go_package = "Training/e-wallet/proto;transaction_proto";
+
+import "google/protobuf/timestamp.proto";
+//import "google/protobuf/empty.proto";
+
+
+service TransactionService {
+    rpc CreateTransaction (CreateTransactionRequest) returns (MutationResponse);
+}
+
+message Transaction {
+    int32 id = 1;
+    int32 user_id = 2;
+    string type = 3;
+    float amount = 4;
+    int32 target_user_id = 5;
+    google.protobuf.Timestamp created_at = 6;
+}
+message CreateTransactionRequest {
+    int32 user_id = 1;
+    string type = 2;
+    float amount = 3;
+    int32 target_user_id = 4;
+    google.protobuf.Timestamp created_at = 6;
+    // tambahkan field lain yang diperlukan untuk permintaan transaksi
+}
+message MutationResponse {
+    string message = 1;
+  }
+  
