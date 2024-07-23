@@ -1,0 +1,49 @@
+syntax = "proto3";
+
+option go_package = "Training/Assignment3/proto;url";
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/empty.proto";
+import "google/api/annotations.proto";
+
+package proto;
+
+// service URLShortener {
+//     rpc ShortenURL (ShortenRequest) returns (ShortenResponse);
+//     rpc GetOriginalURL (OriginalRequest) returns (OriginalResponse);
+// }
+
+service URLShortener {
+    rpc ShortenURL (ShortenRequest) returns (ShortenResponse) {
+        option (google.api.http) = {
+            post: "/v1/shorten"
+            body: "*"
+        };
+    }
+    rpc GetOriginalURL (OriginalRequest) returns (OriginalResponse) {
+        option (google.api.http) = {
+            get: "/v1/original"
+            additional_bindings: {
+                get: "/v1/original/{short_url}"
+            }
+        };
+    }
+}
+
+
+
+message ShortenRequest {
+    string original_url = 1;
+}
+
+message ShortenResponse {
+    string short_url = 1;
+}
+
+message OriginalRequest {
+    string short_url = 1;
+}
+
+message OriginalResponse {
+    string original_url = 1;
+}

@@ -1,0 +1,120 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "proto/url.proto",
+    "version": "version not set"
+  },
+  "tags": [
+    {
+      "name": "url.URLShortener"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/v1/original": {
+      "get": {
+        "operationId": "GetOriginalURL",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/url.OriginalResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "shortUrl",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "url.URLShortener"
+        ]
+      }
+    },
+    "/v1/original/{shortUrl}": {
+      "get": {
+        "operationId": "GetOriginalURL2",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/url.OriginalResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "shortUrl",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "url.URLShortener"
+        ]
+      }
+    },
+    "/v1/shorten": {
+      "post": {
+        "operationId": "ShortenURL",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/url.ShortenResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/url.ShortenRequest"
+            }
+          }
+        ],
+        "tags": [
+          "url.URLShortener"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "url.OriginalResponse": {
+      "type": "object",
+      "properties": {
+        "originalUrl": {
+          "type": "string"
+        }
+      }
+    },
+    "url.ShortenRequest": {
+      "type": "object",
+      "properties": {
+        "originalUrl": {
+          "type": "string"
+        }
+      }
+    },
+    "url.ShortenResponse": {
+      "type": "object",
+      "properties": {
+        "shortUrl": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
