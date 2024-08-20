@@ -22,11 +22,19 @@ import (
 
 func main() {
 	// set redis
+	// rdb := redis.NewClient(&redis.Options{
+	// 	Addr:     "127.0.0.1:6379",
+	// 	Password: "",
+	// 	DB:       0,
+	// })
 	rdb := redis.NewClient(&redis.Options{
-		Addr:     "127.0.0.1:6379",
-		Password: "",
+		Addr:     "redis:6379",
+		Password: "redispass",
 		DB:       0,
 	})
+	if err := rdb.Ping(context.Background()).Err(); err != nil {
+		log.Fatalln(err)
+	}
 
 	// Koneksi database
 	dsn := "postgresql://postgres:P4ssw0rd!@postgres:5433/Assignment4"
@@ -58,8 +66,12 @@ func main() {
 	// 	"0.0.0.0:50051",
 	// 	grpc.WithTransportCredentials(insecure.NewCredentials()),
 	// )
-	conn, err := grpc.DialContext(
-		context.Background(),
+	// conn, err := grpc.DialContext(
+	// 	context.Background(),
+	// 	"0.0.0.0:50051",
+	// 	grpc.WithTransportCredentials(insecure.NewCredentials()),
+	// )
+	conn, err := grpc.Dial(
 		"0.0.0.0:50051",
 		grpc.WithTransportCredentials(insecure.NewCredentials()),
 	)
@@ -90,7 +102,7 @@ func main() {
 			c.JSON(http.StatusNotFound, gin.H{"error": "URL not found"})
 			return
 		}
-		c.Redirect(http.StatusMovedPermanently, originalURL)
+		c.Redirect(http.StatusFound, originalURL)
 	})
 
 	log.Println("Running gRPC gateway server on port :8080")

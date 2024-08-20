@@ -4,6 +4,7 @@ import (
 	"Training/Assignment5/services"
 	"net/http"
 	"strconv"
+	"time"
 
 	"github.com/gin-gonic/gin"
 )
@@ -178,4 +179,153 @@ func (h *WalletHandler) DeleteWallet(c *gin.Context) {
 		return
 	}
 	c.JSON(http.StatusOK, gin.H{"message": "Wallet deleted successfully"})
+}
+
+func (h *WalletHandler) Transfer(c *gin.Context) {
+	fromWalletID, err := strconv.Atoi(c.Query("from_wallet_id"))
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid from_wallet_id"})
+		return
+	}
+
+	toWalletID, err := strconv.Atoi(c.Query("to_wallet_id"))
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid to_wallet_id"})
+		return
+	}
+
+	categoryID, err := strconv.Atoi(c.Query("category_id"))
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid category_id"})
+		return
+	}
+
+	userID, err := strconv.Atoi(c.Query("user_id"))
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid user_id"})
+		return
+	}
+
+	amount, err := strconv.ParseFloat(c.Query("amount"), 64)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid amount"})
+		return
+	}
+
+	// Validasi keberadaan wallet dan user
+	err = h.walletService.Transfer(uint(fromWalletID), uint(toWalletID), uint(categoryID), uint(userID), amount)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"message": "Transfer successful"})
+}
+
+func (h *WalletHandler) GetRecordsBetweenTimes(c *gin.Context) {
+	walletID, err := strconv.Atoi(c.Query("wallet_id"))
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid wallet_id"})
+		return
+	}
+
+	startTimeStr := c.Query("start_time")
+	endTimeStr := c.Query("end_time")
+
+	// Parsing tanggal dengan format YYYY-MM-DD
+	startTime, err := time.Parse("2006-01-02", startTimeStr)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid start_time format"})
+		return
+	}
+
+	endTime, err := time.Parse("2006-01-02", endTimeStr)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid end_time format"})
+		return
+	}
+
+	// Sesuaikan waktu akhir agar mencakup seluruh hari
+	endTime = endTime.Add(23*time.Hour + 59*time.Minute + 59*time.Second)
+
+	records, err := h.walletService.GetRecordsBetweenTimes(uint(walletID), startTime, endTime)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, records)
+}
+
+func (h *WalletHandler) GetCashFlow(c *gin.Context) {
+	startTimeStr := c.Query("start_time")
+	endTimeStr := c.Query("end_time")
+
+	// Parsing tanggal dengan format YYYY-MM-DD
+	startTime, err := time.Parse("2006-01-02", startTimeStr)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid start_time format"})
+		return
+	}
+
+	endTime, err := time.Parse("2006-01-02", endTimeStr)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid end_time format"})
+		return
+	}
+
+	// Sesuaikan waktu akhir agar mencakup seluruh hari
+	endTime = endTime.Add(23*time.Hour + 59*time.Minute + 59*time.Second)
+
+	income, expense, err := h.walletService.GetCashFlow(startTime, endTime)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"total_income":  income,
+		"total_expense": expense,
+	})
+}
+
+func (h *WalletHandler) GetExpenseRecapByCategory(c *gin.Context) {
+	startTimeStr := c.Query("start_time")
+	endTimeStr := c.Query("end_time")
+
+	// Parsing tanggal dengan format YYYY-MM-DD
+	startTime, err := time.Parse("2006-01-02", startTimeStr)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid start_time format"})
+		return
+	}
+
+	endTime, err := time.Parse("2006-01-02", endTimeStr)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid end_time format"})
+		return
+	}
+
+	// Sesuaikan waktu akhir agar mencakup seluruh hari
+	endTime = endTime.Add(23*time.Hour + 59*time.Minute + 59*time.Second)
+
+	recaps, err := h.walletService.GetExpenseRecapByCategory(startTime, endTime)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, recaps)
+}
+
+func (h *WalletHandler) GetLastRecords(c *gin.Context) {
+	limit := 10 // Set limit untuk mengambil 10 record terakhir
+
+	records, err := h.walletService.GetLastRecords(limit)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, records)
 }

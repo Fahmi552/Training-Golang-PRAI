@@ -51,6 +51,21 @@ func main() {
 	r.PUT("/wallets/:id", walletHandler.UpdateWallet)
 	r.DELETE("/wallets/:id", walletHandler.DeleteWallet)
 
+	//Transfer
+	r.POST("/wallets/transfer", walletHandler.Transfer)
+
+	//get record
+	r.GET("/wallets/records", walletHandler.GetRecordsBetweenTimes)
+
+	//get cash flow
+	r.GET("/wallets/cashflow", walletHandler.GetCashFlow)
+
+	//get expence
+	r.GET("/wallets/expense_recap", walletHandler.GetExpenseRecapByCategory)
+
+	//get 10 last record
+	r.GET("/wallets/last_records", walletHandler.GetLastRecords)
+
 	// Transaction Category routes
 	r.POST("/categories", categoryHandler.CreateCategory)
 	r.GET("/categories/:id", categoryHandler.GetCategoryByID)

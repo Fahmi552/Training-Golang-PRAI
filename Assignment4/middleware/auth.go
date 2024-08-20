@@ -3,7 +3,7 @@ package middleware
 import (
 	"net/http"
 
-	"Assignment4/session-10-crud-user-grpcgateway/config"
+	// "Assignment4/session-10-crud-user-grpcgateway/config"
 
 	"github.com/gin-gonic/gin"
 )
@@ -19,7 +19,7 @@ func AuthMiddleware() gin.HandlerFunc {
 			return
 		}
 
-		isValid := (username == config.AuthBasicUsername) && (password == config.AuthBasicPassword)
+		isValid := (username == "123") && (password == "123")
 		if !isValid {
 			c.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid authorization token"})
 			c.Abort()
